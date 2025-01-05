@@ -11,8 +11,17 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
+import App from './libs/App';
+import routes from './routes';
+
 export default {
 	async fetch(request, env, ctx): Promise<Response> {
-		return new Response('Hello World!');
+		const app = new App();
+
+		// Routing
+		const url = new URL(request.url);
+		await routes.mount(app, url, env);
+
+		return new Response(app.render(), { headers: { 'content-type': 'text/html;charset=UTF-8' } });
 	},
 } satisfies ExportedHandler<Env>;
