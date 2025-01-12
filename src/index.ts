@@ -20,8 +20,6 @@ export default {
 
 		// Routing
 		const url = new URL(request.url);
-		await routes.mount(app, url, env);
-
-		return new Response(app.render(), { headers: { 'content-type': 'text/html;charset=UTF-8' } });
+		return await routes.mount(app, url, env);
 	},
 } satisfies ExportedHandler<Env>;
