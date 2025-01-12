@@ -14,5 +14,6 @@ export interface RouterCallback {
 	app: App;
 	url: URL;
 	env: Env;
+	setStatusCode: (code: number) => void;
 	params?: Record<string, string>;
 }

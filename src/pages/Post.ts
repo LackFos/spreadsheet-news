@@ -1,9 +1,9 @@
-import { setStatusCode } from '../libs/Router';
+// import { setStatusCode } from '../libs/Router';
 import { RouterCallback } from '../types';
 import query from '../utils/query';
 import Error404 from './error/Error404';
 
-const Post = async ({ env, params }: RouterCallback) => {
+const Post = async ({ env, params, setStatusCode }: RouterCallback) => {
 	const { SHEETID } = env as Record<string, string>;
 	const slug = params?.slug;
 
