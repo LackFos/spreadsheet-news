@@ -10,7 +10,7 @@ interface CardProps {
 }
 
 const Card = (item: CardProps) => {
-	const createdAt = new Date(item.created_at);
+	const createdAt = new Date(item.created_at.replaceAll('_', '/'));
 	const formattedDate = format(createdAt, 'EEEE, dd MMMM yyyy');
 
 	return `
