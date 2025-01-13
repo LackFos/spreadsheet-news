@@ -2,6 +2,7 @@ import App from './App';
 import { RouterCallback } from '../types';
 import Error404 from '../pages/error/Error404';
 import { useState } from '../utils/useState';
+import Sitemap from '../pages/Sitemap';
 
 class Router {
 	public routes: { path: string; callback: (data: RouterCallback) => Promise<string> }[] = [];
@@ -12,9 +13,25 @@ class Router {
 
 	public async mount(app: App, url: URL, env: Env) {
 		const [getStatusCode, setStatusCode] = useState(200);
-
 		let isNotFound = true;
 
+		// Sitemap handler
+		if (url.pathname.match(/^\/sitemap.*\.xml$/)) {
+			let sitemap = null;
+
+			if (url.pathname === '/sitemap.xml') {
+				sitemap = await Sitemap({ app, env, url, setStatusCode, params: { isIndex: true } });
+			} else {
+				sitemap = await Sitemap({ app, env, url, setStatusCode });
+			}
+
+			return new Response(sitemap, {
+				headers: { 'content-type': 'text/xml;charset=UTF-8' },
+				status: 200,
+			});
+		}
+
+		// Developers defined route handler
 		for (const route of this.routes) {
 			const dynamicPath = route.path.match(/\{([^{}]+)\}/g)?.map((key) => key.slice(1, -1)) ?? []; // Return: ['postid', 'imageid']
 
