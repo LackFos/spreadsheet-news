@@ -3,7 +3,7 @@ import query from '../utils/query';
 import ucWords from '../utils/ucWords';
 import { RouterCallback } from '../types';
 
-const Home = async ({ env, url }: RouterCallback) => {
+const Home = async ({ app, env, url }: RouterCallback) => {
 	const { SHEETID } = env as Record<string, string>;
 	const category = url.searchParams.get('category') ? url.searchParams.get('category') : null;
 
@@ -12,6 +12,12 @@ const Home = async ({ env, url }: RouterCallback) => {
 		: `https://docs.google.com/spreadsheets/d/${SHEETID}/gviz/tq?tqx=out:json&headers=1`;
 
 	const data = await query(queryString);
+
+	app.addHead(`
+		<title>Bloqu | Your Source for Independent News & Media</title>
+		<meta property="og:title" content="Bloqu | Your Source for Independent News & Media" />
+		<meta property="og:description" content="Stay informed with Bloqu. Discover unbiased reporting, insightful stories, and fresh perspectives from trusted independent voices." />
+	`);
 
 	return `
 		<div class="card_container">

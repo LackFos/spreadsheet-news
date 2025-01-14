@@ -4,7 +4,7 @@ import query from '../utils/query';
 import Error404 from './error/Error404';
 import Error500 from './error/Error500';
 
-const Post = async ({ env, params, setStatusCode }: RouterCallback) => {
+const Post = async ({ app, env, params, setStatusCode }: RouterCallback) => {
 	const { SHEETID } = env as Record<string, string>;
 	const slug = params?.slug;
 	let data = null;
@@ -24,6 +24,13 @@ const Post = async ({ env, params, setStatusCode }: RouterCallback) => {
 		setStatusCode(404);
 		return Error404();
 	}
+
+	app.addHead(`
+		<title>${data.nama}</title>
+		<meta property="og:title" content="${data.nama}" />
+		<meta property="og:description" content="${data.description}" />
+		<meta property="og:image" content="${data.cover}" />
+	`);
 
 	return `
       <h1 class="article__title">${data.nama}</h1>
