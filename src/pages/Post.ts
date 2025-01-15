@@ -35,7 +35,9 @@ const Post = async ({ app, env, params, setStatusCode }: RouterCallback) => {
 	return `
       <h1 class="article__title">${data.nama}</h1>
 	  <article class="article">
-	    <img class="article__cover" src="${data.cover}" alt="" />
+		<div class="article__cover">
+	    	<img src="${data.cover}" alt="" />
+		</div>
 
 	 	${data.content} 
 	  </article>
