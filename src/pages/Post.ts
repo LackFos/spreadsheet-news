@@ -1,13 +1,17 @@
 // import { setStatusCode } from '../libs/Router';
+import Card from '../components/Card';
 import { RouterCallback } from '../types';
 import query from '../utils/query';
+import ucWords from '../utils/ucWords';
 import Error404 from './error/Error404';
 import Error500 from './error/Error500';
 
 const Post = async ({ app, env, params, setStatusCode }: RouterCallback) => {
 	const { SHEETID } = env as Record<string, string>;
 	const slug = params?.slug;
+
 	let data = null;
+	let relatedContent = [];
 
 	try {
 		data = (
@@ -15,6 +19,14 @@ const Post = async ({ app, env, params, setStatusCode }: RouterCallback) => {
 				`https://docs.google.com/spreadsheets/d/${SHEETID}/gviz/tq?tqx=out:json&headers=1&tq=SELECT * WHERE B = '${slug}' limit 1`
 			)
 		)[0];
+
+		relatedContent = (
+			await query(
+				`https://docs.google.com/spreadsheets/d/${SHEETID}/gviz/tq?tqx=out:json&headers=1&tq=SELECT * WHERE D = '${data.category}'`
+			)
+		)
+			.sort(() => Math.random() - Math.random())
+			.slice(0, 8);
 	} catch (error) {
 		setStatusCode(500);
 		return Error500();
@@ -41,6 +53,24 @@ const Post = async ({ app, env, params, setStatusCode }: RouterCallback) => {
 
 	 	${data.content} 
 	  </article>
+
+	  <section class="related__content">
+		<h3>You may also like</h3>
+		<div class="card_container">
+			${relatedContent
+				.map((item) =>
+					Card({
+						nama: item.nama,
+						slug: item.slug,
+						kategori: ucWords(item.category),
+						deskripsi: item.description,
+						cover: item.cover,
+						created_at: item.created_at,
+					})
+				)
+				.join('')}
+		</div>
+	  </section>
 	`;
 };
 
