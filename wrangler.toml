@@ -25,6 +25,7 @@ enabled = true
 [vars]
 APP_URL = "https://test.com"
 SHEETID = "1GsVPUp2WEHJq1h78SY00EN1UrCL-OVVZuO9OLocKGlA"
+INDEXNOW = "e91bc5de5f724999b7dbee9acf782d7b"
 
 # Bind the Workers AI model catalog. Run machine learning models, powered by serverless GPUs, on Cloudflare’s global network
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#workers-ai
