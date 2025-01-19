@@ -15,15 +15,15 @@ const Card = (item: CardProps) => {
 
 	return `
         <a href="/post/${item.slug}" class="card">
-            <img class="card__img" src="${item.cover}" alt="" />
+            <img class="card__img" src="${item.cover}" alt="${item.nama}" />
             <div class="card__content">
                 <h4 class="card__title">${item.nama}</h4>
 
                 <p class="card__summary">${item.deskripsi}</p>
 
                 <div class="card__extra">
-                    <span class="badge pill" href="?category=ekonomi">${item.kategori}</span>
-    
+                    <span class="badge pill">${item.kategori}</span>
+
                     <div class="small_text">${formattedDate}</div>
                 </div>
             </div>

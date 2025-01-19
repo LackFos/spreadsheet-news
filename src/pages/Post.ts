@@ -5,6 +5,7 @@ import query from '../utils/query';
 import ucWords from '../utils/ucWords';
 import Error404 from './error/Error404';
 import Error500 from './error/Error500';
+import slugify from '../utils/slugify';
 
 const Post = async ({ app, env, params, setStatusCode }: RouterCallback) => {
 	const { SHEETID } = env as Record<string, string>;
@@ -37,6 +38,8 @@ const Post = async ({ app, env, params, setStatusCode }: RouterCallback) => {
 		return Error404();
 	}
 
+	const tags = JSON.parse(data.tags);
+
 	app.addHead(`
 		<title>${data.nama}</title>
 		<meta name="description" content="${data.description}" />
@@ -53,6 +56,18 @@ const Post = async ({ app, env, params, setStatusCode }: RouterCallback) => {
 		</div>
 
 	 	${data.content}
+
+		${
+			tags.length > 0
+				? `
+					<div>
+						<h4>Tags:</h4>
+						${tags.map((tag) => `<a href="/tags/${slugify(tag)}">${tag}</a>`).join('&nbsp;&nbsp;')}
+					</div>
+					`
+				: ''
+		}
+
 	  </article>
 
 	  <section class="related__content">

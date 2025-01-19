@@ -8,8 +8,8 @@ const Home = async ({ app, env, url }: RouterCallback) => {
 	const category = url.searchParams.get('category') ? url.searchParams.get('category') : null;
 
 	const queryString = category
-		? `https://docs.google.com/spreadsheets/d/${SHEETID}/gviz/tq?tqx=out:json&headers=1&tq=SELECT * WHERE D = '${category} ORDER BY G DESC LIMIT 20'`
-		: `https://docs.google.com/spreadsheets/d/${SHEETID}/gviz/tq?tqx=out:json&headers=1&tq=SELECT * ORDER BY G DESC LIMIT 20`;
+		? `https://docs.google.com/spreadsheets/d/${SHEETID}/gviz/tq?tqx=out:json&headers=1&tq=SELECT * WHERE D = '${category} ORDER BY H DESC LIMIT 20'`
+		: `https://docs.google.com/spreadsheets/d/${SHEETID}/gviz/tq?tqx=out:json&headers=1&tq=SELECT * ORDER BY H DESC LIMIT 20`;
 
 	const data = await query(queryString);
 
