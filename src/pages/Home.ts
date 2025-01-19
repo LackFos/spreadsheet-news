@@ -5,7 +5,7 @@ import { RouterCallback } from '../types';
 
 const Home = async ({ app, env, url }: RouterCallback) => {
 	const { SHEETID } = env as Record<string, string>;
-	const category = url.searchParams.get('category') ? url.searchParams.get('category') : null;
+	const category = url.searchParams.get('category');
 
 	const queryString = category
 		? `https://docs.google.com/spreadsheets/d/${SHEETID}/gviz/tq?tqx=out:json&headers=1&tq=SELECT * WHERE D = '${category} ORDER BY H DESC LIMIT 20'`
@@ -25,10 +25,10 @@ const Home = async ({ app, env, url }: RouterCallback) => {
 		${data
 			.map((item) =>
 				Card({
-					nama: item.nama,
+					name: item.name,
 					slug: item.slug,
-					kategori: ucWords(item.category),
-					deskripsi: item.description,
+					category: ucWords(item.category),
+					description: item.description,
 					cover: item.cover,
 					created_at: item.created_at,
 				})
