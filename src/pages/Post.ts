@@ -39,6 +39,7 @@ const Post = async ({ app, env, params, setStatusCode }: RouterCallback) => {
 
 	app.addHead(`
 		<title>${data.nama}</title>
+		<meta name="description" content="${data.description}" />
 		<meta property="og:title" content="${data.nama}" />
 		<meta property="og:description" content="${data.description}" />
 		<meta property="og:image" content="${data.cover}" />
@@ -51,7 +52,7 @@ const Post = async ({ app, env, params, setStatusCode }: RouterCallback) => {
 	    	<img src="${data.cover}" alt="" />
 		</div>
 
-	 	${data.content} 
+	 	${data.content}
 	  </article>
 
 	  <section class="related__content">
