@@ -20,20 +20,44 @@ const Home = async ({ app, env, url }: RouterCallback) => {
 		<meta property="og:description" content="Stay informed with Bloqu. Discover unbiased reporting, insightful stories, and fresh perspectives from trusted independent voices." />
 	`);
 
+	const totalItems = data.length;
+	const itemPerPage = 12;
+	const totalPages = Math.ceil(totalItems / itemPerPage);
+	const currentPage = url.searchParams.get('page') || 1;
+
+	const startIndex= (currentPage - 1) * itemPerPage;
+	const endIndex= startIndex + itemPerPage;
+
+	const paginatedData = data.slice(startIndex, endIndex);
+
+	const minPage = currentPage - 2 < 1 ? 1 : currentPage - 2;
+	const maxPage = Math.min(totalPages, currentPage + 2);
+
+	const pageNumbers = Array.from({ length: maxPage - minPage + 1 }, (_, index) => minPage + index);
+
 	return `
 		<div class="card_container">
-		${data
-			.map((item) =>
-				Card({
-					name: item.name,
-					slug: item.slug,
-					category: ucWords(item.category),
-					description: item.description,
-					cover: item.cover,
-					created_at: item.created_at,
-				})
-			)
-			.join('')}
+			${paginatedData
+				.map((item) =>
+					Card({
+						name: item.name,
+						slug: item.slug,
+						category: ucWords(item.category),
+						description: item.description,
+						cover: item.cover,
+						created_at: item.created_at,
+					})
+				)
+				.join('')}
+		</div>
+
+		<div class="pagination">
+			${pageNumbers.map((number) => {
+
+				return `
+					<a href="?page=${number}" class="badge ${number != currentPage ? 'outline' : ''}">${number}</a>
+					`
+			}).join('')}
 		</div>
 	`;
 };
