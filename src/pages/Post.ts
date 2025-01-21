@@ -14,7 +14,7 @@ const Post = async ({ app, env, params, setStatusCode }: RouterCallback) => {
 
 	let data = null;
 	const randomRelatedContent: Record<string, string>[] = [];
-	const randomRelatedContentCount = 8;
+	const randomRelatedContentCount = 9;
 
 	try {
 		data = (
