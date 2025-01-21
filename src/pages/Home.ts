@@ -55,7 +55,7 @@ const Home = async ({ app, env, url }: RouterCallback) => {
 		?
 			`<div class="pagination">
 					${pageNumbers.map((number) => {
-						return `<a href="?page=${number}" class="badge ${number !== currentPage ? 'outline' : ''}">${number}</a>`
+						return `<a href="?page=${number}" class="badge ${number != currentPage ? 'outline' : ''}">${number}</a>`
 					}).join('')}
 				</div>
 			`
