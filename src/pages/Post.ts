@@ -38,8 +38,6 @@ const Post = async ({ app, env, params, setStatusCode }: RouterCallback) => {
 		});
 
 	} catch (error) {
-		setStatusCode(500);
-		return Error500();
 	}
 
 	if (!data) {
