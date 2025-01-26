@@ -23,10 +23,10 @@ const Home = async ({ app, env, url }: RouterCallback) => {
 	const totalItems = data.length;
 	const itemPerPage = 12;
 	const totalPages = Math.ceil(totalItems / itemPerPage);
-	const currentPage = url.searchParams.get('page') || 1;
+	const currentPage = Number(url.searchParams.get('page')) || 1;
 
-	const startIndex= (currentPage - 1) * itemPerPage;
-	const endIndex= startIndex + itemPerPage;
+	const startIndex = (currentPage - 1) * itemPerPage;
+	const endIndex = startIndex + itemPerPage;
 
 	const paginatedData = data.slice(startIndex, endIndex);
 
@@ -51,15 +51,18 @@ const Home = async ({ app, env, url }: RouterCallback) => {
 				.join('')}
 		</div>
 
-		${paginatedData.length > 0
-		?
-			`<div class="pagination">
-					${pageNumbers.map((number) => {
-						return `<a href="?page=${number}" class="badge ${number != currentPage ? 'outline' : ''}">${number}</a>`
-					}).join('')}
+		${
+			paginatedData.length > 0
+				? `<div class="pagination">
+					${pageNumbers
+						.map((number) => {
+							return `<a href="?page=${number}" class="badge ${number != currentPage ? 'outline' : ''}">${number}</a>`;
+						})
+						.join('')}
 				</div>
 			`
-		: ''}
+				: ''
+		}
 	`;
 };
 
