@@ -1,3 +1,5 @@
+import minify from '../utils/minify';
+
 class App {
 	public html: string = '';
 	public header: string = '';
@@ -16,9 +18,9 @@ class App {
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-				<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-				<meta property="og:type" content="website" />
-				<meta property="og:url" content="https://www.bloqu.com" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://www.bloqu.com" />
 		`);
 	}
 
@@ -46,16 +48,12 @@ class App {
 		this.body += html;
 	}
 
-	public minify(html: string): string {
-		return html.trim().replace(/>\s+</g, '><');
-	}
-
 	public render(): string {
-		const head = this.minify(this.head);
-		const header = this.minify(this.header);
-		const body = this.minify(this.body);
+		const head = minify(this.head);
+		const header = minify(this.header);
+		const body = minify(this.body);
 
-		return `<!DOCTYPE html> <html lang="en"> <head> ${head} </head> <body> ${header} <main class="container">${body}</main> </body> </html>`;
+		return `<!DOCTYPE html><html lang="en"><head>${head}</head><body>${header}<main class="container">${body}</main></body></html>`;
 	}
 }
 

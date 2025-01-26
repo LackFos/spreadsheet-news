@@ -3,6 +3,7 @@ import { RouterCallback } from '../types';
 import Error404 from '../pages/error/Error404';
 import { useState } from '../utils/useState';
 import Sitemap from '../pages/Sitemap';
+import Rss from '../pages/Rss';
 
 class Router {
 	public routes: { path: string; callback: (data: RouterCallback) => Promise<string> }[] = [];
@@ -43,6 +44,11 @@ class Router {
 				headers: { 'content-type': 'text/xml;charset=UTF-8' },
 				status: 200,
 			});
+		}
+
+		if (url.pathname === '/rss.xml') {
+			const rss = await Rss({ app, env, url, setStatusCode });
+			return new Response(rss, { headers: { 'content-type': 'text/xml;charset=UTF-8' }, status: 200 });
 		}
 
 		// Developers defined route handler
