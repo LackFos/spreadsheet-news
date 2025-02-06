@@ -4,6 +4,7 @@ import Error404 from '../pages/error/Error404';
 import { useState } from '../utils/useState';
 import Sitemap from '../pages/Sitemap';
 import Rss from '../pages/Rss';
+import useConfig from '../hooks/useConfig';
 
 class Router {
 	public routes: { path: string; callback: (data: RouterCallback) => Promise<string> }[] = [];
@@ -13,9 +14,11 @@ class Router {
 	}
 
 	public async mount(app: App, url: URL, env: Env) {
-		const [getStatusCode, setStatusCode] = useState(200);
+		const SHEETID = (env as Record<string, string>).SHEETID;
+		const INDEXNOW = await useConfig(SHEETID, 'index_now');
+
 		let isNotFound = true;
-		const { INDEXNOW } = env as Record<string, string>;
+		const [getStatusCode, setStatusCode] = useState(200);
 
 		// Indexnow handler
 		if (url.pathname === `/${INDEXNOW}.txt`) {
