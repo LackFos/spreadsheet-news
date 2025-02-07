@@ -1,9 +1,11 @@
 import { RouterCallback } from '../types';
 import query from '../utils/query';
 import RssGenerator from '../libs/RssGenerator';
+import useConfig from '../hooks/useConfig';
 
 const Rss = async ({ env, url, params }: RouterCallback) => {
-	const { APP_URL, SHEETID } = env as Record<string, string>;
+	const SHEETID = (env as Record<string, string>).SHEETID;
+	const APP_URL = await useConfig(SHEETID, 'app_url');
 
 	const posts = await query(`https://docs.google.com/spreadsheets/d/${SHEETID}/gviz/tq?tqx=out:json&headers=1&tq=SELECT * LIMIT 50`);
 

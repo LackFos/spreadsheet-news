@@ -2,9 +2,12 @@ import { format } from 'date-fns';
 import SitemapGenerator from '../libs/SitemapGenerator';
 import { RouterCallback } from '../types';
 import query from '../utils/query';
+import useConfig from '../hooks/useConfig';
 
 const Sitemap = async ({ env, url, params }: RouterCallback) => {
-	const { APP_URL, SHEETID } = env as Record<string, string>;
+	const SHEETID = (env as Record<string, string>).SHEETID;
+	const APP_URL = await useConfig(SHEETID, 'app_url');
+
 	const isIndex = params?.isIndex;
 
 	const sitemapGenerator = isIndex ? new SitemapGenerator(APP_URL, true) : new SitemapGenerator(APP_URL);
