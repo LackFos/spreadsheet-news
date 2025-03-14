@@ -45,9 +45,7 @@ Follow these steps to set up the project locally:
 
    ```toml
    [vars]
-   API_KEY = "your-api-key-here"
    SHEET_ID = "your-sheet-id-here"
-   OTHER_VARIABLE = "your-other-value"
    ```
 
 ## Deployment
