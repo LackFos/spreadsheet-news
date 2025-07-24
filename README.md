@@ -30,7 +30,7 @@ Follow these steps to set up the project locally:
 
 3. **Create Your Own Spreadsheet**
 
-   - Go to the following spreadsheet link: [Spreadsheet Template](https://docs.google.com/spreadsheets/d/1GsVPUp2WEHJq1h78SY00EN1UrCL-OVVZuO9OLocKGlA/edit?usp=sharing)
+   - Go to the following spreadsheet link: [Spreadsheet Template](https://docs.google.com/spreadsheets/d/1nrcn7VkPDLJnvpQv1gg--I0qMtXve9e8ncWUwvOdf9o/edit?gid=0#gid=0)
    - Click on **File** > **Buat Salinan** to make your own copy of the spreadsheet.
    - After creating your copy, note the **Sheet ID** from the URL. The URL will look like:
      ```
